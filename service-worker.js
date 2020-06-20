@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ntu-tree-map-demo/precache-manifest.af049813614c53c35de50b8db6f68ae5.js"
+  "/ntu-tree-map-demo/precache-manifest.4ea6d805a45580777afabf4d46d918b3.js"
 );
 
 self.addEventListener('message', (event) => {
