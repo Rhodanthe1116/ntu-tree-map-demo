@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme'
@@ -14,6 +14,8 @@ import Box from '@material-ui/core/Box'
 import MarkerInfoWindowMap from './components/MarkerInfoWindowMap';
 import TreeAppBar from './components/TreeAppBar'
 import FloatingNavgationBar from './components/FloatingNavgationBar'
+import TreeDetailDrawer from './components/TreeDetailDrawer'
+
 const useStyles = makeStyles({
 	root: {
 		display: 'flex',
@@ -29,7 +31,14 @@ const useStyles = makeStyles({
 
 function App() {
 	const classes = useStyles()
+	const [drawerOpen, setDrawerOpen] = useState(false)
+	const [selectedTree, setSelectedTree] = useState(null)
 
+	function openTreeDetail(tree) {
+		console.log(tree)
+		setDrawerOpen(true)
+		setSelectedTree(tree)
+	}
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
@@ -37,8 +46,12 @@ function App() {
 				{/* <TreeAppBar /> */}
 				<Box className={classes.main} component="main">
 					<FloatingNavgationBar />
-					<MarkerInfoWindowMap />
-					
+					<MarkerInfoWindowMap onLearnMoreClick={openTreeDetail} />
+					<TreeDetailDrawer
+						open={drawerOpen}
+						onClose={() => setDrawerOpen(false)}
+						tree={selectedTree}
+					/>
 				</Box>
 			</Box>
 		</ThemeProvider>

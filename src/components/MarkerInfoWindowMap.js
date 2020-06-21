@@ -5,7 +5,6 @@ import isEmpty from 'lodash.isempty';
 import GoogleMap from './GoogleMap';
 
 // component
-import Drawer from '@material-ui/core/Drawer';
 
 // my component
 import TreeMarker from './TreeMarker'
@@ -19,29 +18,21 @@ const ntuLocation = {
 }
 const NTU_CENTER = [25.017319, 121.538977]
 
-function MarkerInfoWindowMap() {
+function MarkerInfoWindowMap({ onLearnMoreClick }) {
     const [places, setPlaces] = useState([])
 
     useEffect(() => {
-        fetch('trees.json')
+        fetch('ntu-tree-map-demo/trees.json')
             .then(response => response.json())
             .then((data) => {
                 data.results.forEach((result) => {
                     result.show = false; // eslint-disable-line no-param-reassign
+                    result.lat = ntuLocation.center.lat + (Math.random() - 0.5) * 0.01
+                    result.lng = ntuLocation.center.lng + (Math.random() - 0.5) * 0.01
                 });
                 setPlaces(data.results)
             });
     }, [])
-
-    const [drawerOpen, setDrawerOpen] = useState(false)
-    const [selectedTree, setSelectedTree] = useState(null)
-
-    function openTreeDetail(tree) {
-        console.log(tree)
-        setDrawerOpen(true)
-        setSelectedTree(tree)
-    }
-
 
     // onChildClick callback can take two arguments: key and childProps
     function onChildClickCallback(key) {
@@ -79,19 +70,15 @@ function MarkerInfoWindowMap() {
                     {places.map(place =>
                         (<TreeMarker
                             key={place.id}
-                            lat={ntuLocation.center.lat + (Math.random() - 0.5) * 0.01}
-                            lng={ntuLocation.center.lng + (Math.random() - 0.5) * 0.01}
+                            lat={place.lat}
+                            lng={place.lng}
                             show={place.show}
                             tree={place}
-                            onLearnMoreClick={openTreeDetail}
+                            onLearnMoreClick={onLearnMoreClick}
                         />))}
                 </GoogleMap>
             )}
-            <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-                <div>
-                    {selectedTree !== null && JSON.stringify(selectedTree)}
-                </div>
-            </Drawer>
+
         </>
     );
 }

@@ -9,6 +9,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 const useStyles = makeStyles({
     card: {
         width: '345px',
@@ -33,11 +36,27 @@ function TreeInfoWindow({ tree, onLearnMoreClick }) {
 
     return (
         <Card className={classes.card}>
-            <CardMedia
-                className={classes.media}
-                image={`https://source.unsplash.com/345x200/?tree`}
-                title="tree"
-            />
+            <Carousel
+                width="345"
+                showStatus={false}
+                showThumbs={false}
+            >
+                <CardMedia
+                    className={classes.media}
+                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 1}`}
+                    title={tree.chineseTreeName}
+                />
+                <CardMedia
+                    className={classes.media}
+                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 2}`}
+                    title={tree.chineseTreeName}
+                />
+                <CardMedia
+                    className={classes.media}
+                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 3}`}
+                    title={tree.chineseTreeName}
+                />
+            </Carousel>
             <CardContent>
                 <Typography variant="outline">
                     {tree.growthFrom}

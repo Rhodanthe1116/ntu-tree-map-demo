@@ -24,8 +24,9 @@ function TreeMarker({ show, tree, onLearnMoreClick }) {
     const id = open ? 'transitions-popper' : undefined;
 
     const handleClick = (event) => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
-        setOpen(!open)
+        setAnchorEl(event.currentTarget);
+        setOpen(true)
+        onLearnMoreClick(tree)
     };
     const handleMouseEnter = (event) => {
         setAnchorEl(event.currentTarget)

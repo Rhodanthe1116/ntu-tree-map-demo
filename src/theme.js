@@ -19,6 +19,7 @@ const theme = createMuiTheme({
             '"Helvetica Neue"',
             'Arial',
             '"Noto Sans TC"',
+            '"Noto Sans CJK TC"',
             '"LiHei Pro"',
             '"Heiti TC"',
             '"Microsoft JhengHei"',
