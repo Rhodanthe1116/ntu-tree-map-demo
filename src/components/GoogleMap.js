@@ -19,7 +19,7 @@ function GoogleMap({ children, ...props }) {
     return (
         <div className={classes.googleMap}>
             <GoogleMapReact
-                bootstrapURLKeys={{
+                bootstrapURLKeys={process.env.NODE_ENV === 'production' && {
                     key: "AIzaSyDU6n5BvjKz-itsG7Epkf-TOp6BfTG7E2o",
                 }}
                 options={{

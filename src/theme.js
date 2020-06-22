@@ -1,11 +1,15 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
-import yellow from '@material-ui/core/colors/yellow';
+import brown from '@material-ui/core/colors/brown';
+import amber from '@material-ui/core/colors/amber';
 
 const theme = createMuiTheme({
     palette: {
         primary: green,
-        secondary: yellow,
+        secondary: amber,
+        accent: {...brown, 
+            main: brown[500],
+        },
         text: {
             primary: '#424242',
         }
@@ -30,7 +34,7 @@ const theme = createMuiTheme({
         ].join(','),
         h3: {
             fontWeight: '500'
-        }, 
+        },
         h4: {
             marginTop: '40px',
             marginBottom: '16px',

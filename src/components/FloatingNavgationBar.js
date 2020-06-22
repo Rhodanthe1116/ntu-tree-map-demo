@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 // components
-import NatureIcon from '@material-ui/icons/NatureOutlined'
-import LocationCityIcon from '@material-ui/icons/LocationCityOutlined';
+import NatureIcon from '@material-ui/icons/Nature'
 import Fab from '@material-ui/core/Fab';
+import { lightBlue, deepOrange, amber, red } from '@material-ui/core/colors';
 
 // season icons
 import EcoIcon from '@material-ui/icons/EcoOutlined';
@@ -12,42 +12,71 @@ import SpaIcon from '@material-ui/icons/SpaOutlined';
 import WbSunnyIcon from '@material-ui/icons/WbSunnyOutlined';
 import AcUnitIcon from '@material-ui/icons/AcUnitOutlined';
 
+// area icons
+import StreetviewIcon from '@material-ui/icons/Streetview';
+import OpacityIcon from '@material-ui/icons/Opacity';
+import LocationCityIcon from '@material-ui/icons/LocationCityOutlined';
+import LocalHospitalOutlinedIcon from '@material-ui/icons/LocalHospitalOutlined';
+
 import Zoom from '@material-ui/core/Zoom';
 
 // my components
 import SpeedDials from './SpeedDials'
+import { Typography } from '@material-ui/core';
+import Logo from './Logo';
 
 const useStyles = makeStyles((theme) => ({
     title: {
+        width: 'auto',
+        height: 'auto',
+        padding: theme.spacing(1, 3),
+        borderRadius: 64,
         zIndex: 100,
-        color: '#ffffff',
+        color: theme.palette.primary.contrastText,
     },
     floatingNavgationBar: {
         display: 'flex',
+        alignItems: 'flex-start',
         flexDirection: 'column',
         position: 'absolute',
         marginTop: theme.spacing(2),
         marginLeft: theme.spacing(2),
     },
+    titleLogo: {
+        marginRight: theme.spacing(1),
+    },
+    icon: {
+        color: theme.palette.accent.main
+    }
 
 }));
 
-export default function FloatingNavgationBar() {
+export default function FloatingNavgationBar({ filter, onFilterChange }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
 
     return (
         <div className={classes.floatingNavgationBar}>
-            <Zoom
-                in={true}
-            >
-                <Fab variant="extended" color="primary" aria-label="add" className={classes.title}>
-                    <NatureIcon />
-                    台大樹語
+            <Zoom in={true}>
+                <Fab
+                    variant="extended"
+                    color="primary"
+                    aria-label="title"
+                    className={classes.title}
+                >
+                    {/* <NatureIcon /> */}
+                    <Logo className={classes.titleLogo} />
+                    <Typography
+                        variant="h6"
+                    >
+                        臺大樹語
+                    </Typography>
                 </Fab>
-            </Zoom>                    
+            </Zoom>
             <SpeedDials
-                icon={<NatureIcon color="secondary" />}
+                type="common"
+                icon={<NatureIcon className={classes.icon} />}
+                onActionClick={onFilterChange}
                 actions={[
                     { icon: <NatureIcon color="primary" />, name: '大王椰子' },
                     { icon: <NatureIcon color="primary" />, name: '樟樹' },
@@ -57,21 +86,24 @@ export default function FloatingNavgationBar() {
                 ]}
             />
             <SpeedDials
-                icon={<EcoIcon color="secondary" />}
+                type="season"
+                icon={<EcoIcon className={classes.icon} />}
+                onActionClick={onFilterChange}
                 actions={[
-                    { icon: <SpaIcon color="primary" />, name: '春天' },
-                    { icon: <WbSunnyIcon color="primary" />, name: '夏天' },
-                    { icon: <EcoIcon color="primary" />, name: '秋天' },
-                    { icon: <AcUnitIcon color="primary" />, name: '冬天' },
+                    { icon: <EcoIcon color="primary" />, name: '春天', value: 'spring' },
+                    { icon: <WbSunnyIcon style={{ color: amber[700] }} />, name: '夏天', value: 'summer' },
+                    { icon: <SpaIcon style={{ color: deepOrange[700] }} />, name: '秋天', value: 'autumn' },
+                    { icon: <AcUnitIcon style={{ color: lightBlue[500] }} />, name: '冬天', value: 'winter' },
                 ]}
             />
             <SpeedDials
-                icon={<LocationCityIcon color="secondary" />}
+                type="area"
+                icon={<StreetviewIcon className={classes.icon} />}
+                onActionClick={onFilterChange}
                 actions={[
-                    { icon: <SpaIcon color="primary" />, name: '春天' },
-                    { icon: <WbSunnyIcon color="primary" />, name: '夏天' },
-                    { icon: <EcoIcon color="primary" />, name: '秋天' },
-                    { icon: <AcUnitIcon color="primary" />, name: '冬天' },
+                    { icon: <LocationCityIcon style={{ color: deepOrange[200] }} />, name: '總區' },
+                    { icon: <OpacityIcon style={{ color: lightBlue[500] }} />, name: '水源' },
+                    { icon: <LocalHospitalOutlinedIcon style={{ color: red[500] }} />, name: '城中' },
                 ]}
             />
         </div>

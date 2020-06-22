@@ -14,29 +14,52 @@ import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 
+// icons
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import TodayIcon from '@material-ui/icons/Today';
+import HeightIcon from '@material-ui/icons/Height';
+import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import PowerInputIcon from '@material-ui/icons/PowerInput';
+import StyleIcon from '@material-ui/icons/Style';
+import TranslateIcon from '@material-ui/icons/Translate';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import EcoIcon from '@material-ui/icons/EcoOutlined';
+
+// carousel
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
+// lazyload placeholder
+import Image from 'material-ui-image'
+
 // my components
-import SpeedDials from './SpeedDials'
 
 const useStyles = makeStyles((theme) => ({
     detail: {
         marginTop: theme.spacing(2),
         width: 400,
     },
-    media: {
-        paddingBottom: 225,
-        height: 225,
-
-    },
     divider: {
         marginBottom: theme.spacing(2),
     },
-
+    icon: {
+        color: theme.palette.primary.main
+    }
 
 }));
 
+function SimpleListItem({ button = false, icon, color = "primary", primary }) {
+    const classes = useStyles()
+    return (
+        <ListItem button={button}>
+            <ListItemIcon className={classes.icon}>
+                {icon}
+            </ListItemIcon>
+            <ListItemText primary={primary} />
+        </ListItem>
+    )
+}
 export default function TreeDetail({ tree }) {
     const classes = useStyles();
 
@@ -47,21 +70,26 @@ export default function TreeDetail({ tree }) {
                 height="225px"
                 showStatus={false}
                 showThumbs={false}
+                centerMode
+                swipeable
             >
-                <CardMedia
-                    className={classes.media}
-                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 1}`}
-                    title={tree.chineseTreeName}
+                <Image
+                    aspectRatio={(16 / 9)}
+                    alt={tree.chineseTreeName}
+                    disableSpinner
+                    src={`https://source.unsplash.com/345x200/?tree?${tree.id + 0}`}
                 />
-                <CardMedia
-                    className={classes.media}
-                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 2}`}
-                    title={tree.chineseTreeName}
+                <Image
+                    aspectRatio={(16 / 9)}
+                    alt={tree.chineseTreeName}
+                    disableSpinner
+                    src={`https://source.unsplash.com/345x200/?tree?${tree.id + 1}`}
                 />
-                <CardMedia
-                    className={classes.media}
-                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 3}`}
-                    title={tree.chineseTreeName}
+                <Image
+                    aspectRatio={(16 / 9)}
+                    alt={tree.chineseTreeName}
+                    disableSpinner
+                    src={`https://source.unsplash.com/345x200/?tree?${tree.id + 2}`}
                 />
             </Carousel>
 
@@ -74,61 +102,42 @@ export default function TreeDetail({ tree }) {
                 </Typography>
 
                 <Typography variant="body2" color="textSecondary" paragraph>
-                    {`${tree.chineseTreeName}是一種${tree.growthFrom}，樹必定會成為未來世界的新標準。 我們不得不面對一個非常尷尬的事實，那就是，領悟其中的道理也不是那麼的困難。`}
+                    {`${tree.chineseTreeName}是一種${tree.growthFrom}，\
+                    樹必定會成為未來世界的新標準。 我們不得不面對一個非常尷尬的事實，\
+                    那就是，領悟其中的道理也不是那麼的困難。`}
                 </Typography>
-                
+
                 <Divider className={classes.divider} />
 
                 <Typography variant="subtitle2">
                     樹木資訊
                     </Typography>
                 <List dense aria-label="tree-detail">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={treePlaceholder.co} />
-                    </ListItem>
-                    <ListItem >
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={`調查時間：${treePlaceholder.createTime}`}
-                        />
-                    </ListItem>
-                    <ListItem >
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={`樹高：${treePlaceholder.treeHeight}`}
-                        />
-                    </ListItem>
-                    <ListItem >
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={`樹冠幅：${treePlaceholder.treeCrownHeight}`}
-                        />
-                    </ListItem>
-                    <ListItem >
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={`胸徑：${treePlaceholder.treePath}`}
-                        />
-                    </ListItem>
-                    <ListItem >
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={`周長：${treePlaceholder.treePerimeter}`}
-                        />
-                    </ListItem>
+                    <SimpleListItem
+                        button={true}
+                        icon={<LocalOfferIcon className={classes.icon} />}
+                        primary={treePlaceholder.co}
+                    />
+                    <SimpleListItem
+                        icon={<TodayIcon className={classes.icon} />}
+                        primary={`調查時間：${treePlaceholder.createTime}`}
+                    />
+                    <SimpleListItem
+                        icon={<HeightIcon className={classes.icon} />}
+                        primary={`樹高：${treePlaceholder.treeHeight}`}
+                    />
+                    <SimpleListItem
+                        icon={<ZoomOutMapIcon className={classes.icon} />}
+                        primary={`樹冠幅：${treePlaceholder.treeCrownHeight}`}
+                    />
+                    <SimpleListItem
+                        icon={<PowerInputIcon className={classes.icon} />}
+                        primary={`胸徑：${treePlaceholder.treePath}`}
+                    />
+                    <SimpleListItem
+                        icon={<RotateLeftIcon className={classes.icon} />}
+                        primary={`周長：${treePlaceholder.treePerimeter}`}
+                    />
                 </List>
 
                 <Divider className={classes.divider} />
@@ -139,7 +148,7 @@ export default function TreeDetail({ tree }) {
                 <List aria-label="tree-catagory-info">
                     <ListItem button>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <StyleIcon className={classes.icon} />
                         </ListItemIcon>
                         <ListItemText
                             primary={tree.growthFrom}
@@ -147,7 +156,7 @@ export default function TreeDetail({ tree }) {
                     </ListItem>
                     <ListItem >
                         <ListItemIcon>
-                            <DraftsIcon />
+                            <TranslateIcon className={classes.icon} />
                         </ListItemIcon>
                         <ListItemText
                             primary="英文名"
@@ -156,20 +165,36 @@ export default function TreeDetail({ tree }) {
                     </ListItem>
                     <ListItem >
                         <ListItemIcon>
-                            <DraftsIcon />
+                            <MenuBookIcon className={classes.icon} />
                         </ListItemIcon>
                         <ListItemText
                             primary="學名"
                             secondary={tree.scientificTreeName}
                         />
                     </ListItem>
+                    <SimpleListItem
+                        button={true}
+                        icon={<EcoIcon className={classes.icon} />}
+                        primary={determineSeason(tree)}
+                    />
                 </List>
-
-
-
             </Container>
         </>
     );
+}
+
+function determineSeason(tree) {
+    if (tree.seasonSpring === "on") {
+        return '春季'
+    } else if (tree.seasonSummer === "on") {
+        return '夏季'
+    } else if (tree.seasonSummer === "on") {
+        return '秋季'
+    } else if (tree.seasonSummer === "on") {
+        return '冬季'
+    } else {
+        return '非季節性'
+    }
 }
 
 

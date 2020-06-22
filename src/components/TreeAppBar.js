@@ -27,7 +27,7 @@ export default function TreeAppBar() {
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
                     臺大樹語
-                    </Typography>
+                </Typography>
             </Toolbar>
         </AppBar>
     );

@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import capitalize from 'lodash/capitalize'
+
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -18,7 +20,7 @@ const speedDialSelected = {
     zIndex: 1052,
 }
 
-export default function SpeedDials({ icon, actions }) {
+export default function SpeedDials({ icon, type, actions, onActionClick }) {
     const classes = useStyles();
     const [direction, setDirection] = React.useState('right');
     const [open, setOpen] = React.useState(false);
@@ -33,12 +35,8 @@ export default function SpeedDials({ icon, actions }) {
         setOpen(true);
     };
 
-    function FABChildren() {
-        return (
-            <h5>
-                sdfsd
-            </h5>
-        )
+    const handleClick = (e, actionValue) => {
+        onActionClick({ type: type + capitalize(actionValue), value: "on" })
     }
     return (
         <>
@@ -59,7 +57,9 @@ export default function SpeedDials({ icon, actions }) {
                 FabProps={{
                     variant: true ? "extended" : "round",
                     children: "asdsadasd",
-                    color: 'primary',
+                    color: 'secondary',
+                    onClick: (e) => handleClick(e, actions[0].value),
+
                 }}
             >
                 {actions.map((action) => (
@@ -67,7 +67,7 @@ export default function SpeedDials({ icon, actions }) {
                         key={action.name}
                         icon={action.icon}
                         tooltipTitle={action.name}
-                        onClick={handleClose}
+                        onClick={(e) => handleClick(e, action.value)}
                     />
                 ))}
             </SpeedDial>

@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
+// lazyload placeholder
+import Image from 'material-ui-image'
+
 const useStyles = makeStyles({
     card: {
         width: '345px',
@@ -37,24 +40,30 @@ function TreeInfoWindow({ tree, onLearnMoreClick }) {
     return (
         <Card className={classes.card}>
             <Carousel
-                width="345"
+                width="345px"
+                height="140px"
                 showStatus={false}
                 showThumbs={false}
+                centerMode
+                swipeable
             >
-                <CardMedia
-                    className={classes.media}
-                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 1}`}
-                    title={tree.chineseTreeName}
+                <Image
+                    aspectRatio={(16 / 9)}
+                    alt={tree.chineseTreeName}
+                    disableSpinner
+                    src={`https://source.unsplash.com/345x200/?tree?${tree.id + 0}`}
                 />
-                <CardMedia
-                    className={classes.media}
-                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 2}`}
-                    title={tree.chineseTreeName}
+                <Image
+                    aspectRatio={(16 / 9)}
+                    alt={tree.chineseTreeName}
+                    disableSpinner
+                    src={`https://source.unsplash.com/345x200/?tree?${tree.id + 1}`}
                 />
-                <CardMedia
-                    className={classes.media}
-                    image={`https://source.unsplash.com/345x200/?tree?${tree.id + 3}`}
-                    title={tree.chineseTreeName}
+                <Image
+                    aspectRatio={(16 / 9)}
+                    alt={tree.chineseTreeName}
+                    disableSpinner
+                    src={`https://source.unsplash.com/345x200/?tree?${tree.id + 2}`}
                 />
             </Carousel>
             <CardContent>
@@ -70,7 +79,12 @@ function TreeInfoWindow({ tree, onLearnMoreClick }) {
 
             </CardContent>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                    size="small"
+                    color="primary"
+                    href="https://giving.ntu.edu.tw/DonationFormTW.aspx?lang=TW"
+                    target="_blank"
+                >
                     保護我
                 </Button>
                 <Button

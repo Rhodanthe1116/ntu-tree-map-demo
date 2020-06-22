@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 
-import NatureIcon from '@material-ui/icons/Nature'
+import TreeIcon from './TreeIcon';
 
 const useStyles = makeStyles({
 
@@ -14,6 +14,8 @@ const useStyles = makeStyles({
         cursor: 'pointer',
     },
 })
+
+
 
 // Marker component
 function TreeMarker({ show, tree, onLearnMoreClick }) {
@@ -37,17 +39,21 @@ function TreeMarker({ show, tree, onLearnMoreClick }) {
         setOpen(false)
     }
 
+    if (!show) {
+        return <></>
+    }
+
     return (
         <div
             onMouseLeave={handleMouseLeave}
         >
-            <NatureIcon
+
+
+            <TreeIcon
                 className={classes.marker}
                 color={open ? "secondary" : "primary"}
                 onClick={handleClick}
                 onMouseEnter={handleMouseEnter}
-
-
             />
 
             <Popper id={id} open={open} anchorEl={anchorEl} transition={true}>
@@ -68,7 +74,7 @@ function TreeMarker({ show, tree, onLearnMoreClick }) {
 };
 
 TreeMarker.propTypes = {
-    show: PropTypes.bool.isRequired,
+    show: PropTypes.bool,
     place: PropTypes.shape({
         name: PropTypes.string,
         formatted_address: PropTypes.string,
