@@ -63,6 +63,7 @@ export default function FloatingNavgationBar({ filter, onFilterChange }) {
                     color="primary"
                     aria-label="title"
                     className={classes.title}
+                    onClick={() => onFilterChange({ type: 'all', value: 'on' })}
                 >
                     {/* <NatureIcon /> */}
                     <Logo className={classes.titleLogo} />

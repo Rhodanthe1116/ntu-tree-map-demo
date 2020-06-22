@@ -43,7 +43,7 @@ function App() {
 	const [selectedTree, setSelectedTree] = useState(null)
 
 	const [trees, setTrees] = useState([])
-	const [filter, setFilter] = useState({ type: "seasonSpring", value: "on" })
+	const [filter, setFilter] = useState({ type: "all", value: "on" })
 
 	useEffect(() => {
 		fetch(process.env.NODE_ENV === 'production' ? 'trees.json' : 'final/trees.json')
@@ -56,12 +56,17 @@ function App() {
 			})
 			.then((jsonResponse) => {
 				let newTrees = jsonResponse.rows
-				newTrees = newTrees.filter(tree => {
-					if (tree[filter.type] === filter.value) {
-						return true
-					}
-					return false
-				})
+
+				if (filter.type !== 'all') {
+					newTrees = newTrees.filter(tree => {
+						if (tree[filter.type] === filter.value) {
+							return true
+						}
+						return false
+					})
+				}
+				newTrees = newTrees.slice(0, 50)
+
 				newTrees.forEach((tree) => {
 					tree.lat = ntuLocation.center.lat + (Math.random() - 0.5) * 0.01
 					tree.lng = ntuLocation.center.lng + (Math.random() - 0.5) * 0.01
